@@ -28,6 +28,7 @@ class Animal:
         self.role = role
         self.x = random.randint(0, len(matrix[self.role][0])-1)
         self.y = random.randint(0, len(matrix[self.role])-1)
+        self.cromosome = 
         matrix[self.role][self.x][self.y].append(self)
 
     def __eq__(self, other):
@@ -37,15 +38,11 @@ class Animal:
         return hash((self.role, self.x, self.y))
 
     def movement(self, move, matrix):
-        print("x ", self.x)
-        print("y ", self.y)
-        print(" ")
         matrix[self.role][self.x][self.y].remove(self)
         self.x = self.x + move[0]
         self.y = self.y + move[1]
         matrix[self.role][self.x][self.y].append(self)
-        print("x ", self.x)
-        print("y ", self.y)
+
 
     def pos_movement(self, matrix):
         pos = []
@@ -131,6 +128,51 @@ def draw_state(ax, board_size, matrix):
     ax.axis("image")
 
 
+def item_b(n_rabbits, n_foxes, sleep, board_size, matrix, time_max):
+    time = 0
+    foxes = []
+    rabbits = []
+    fig, ax = plt.subplots()
+    fig.set_size_inches(8,8)
+
+    for i in range(0, n_rabbits):
+        rabbits.append(Animal(0, matrix))
+    for i in range(0, n_foxes):
+        foxes.append(Animal(1, matrix))
+
+    while time < time_max:
+
+        # draw state in the board
+        draw_state(ax, board_size, matrix)
+        # wait until refresh board
+        plt.pause(sleep)
+        plt.cla()
+
+        # foxes eat rabbits if in the same cell
+        eat_rabbits(rabbits, matrix)
+        # draw state in the board
+        draw_state(ax, board_size, matrix)
+        # wait until refresh board
+        plt.pause(sleep)
+        plt.cla()
+        
+        # animals move
+        for fox in foxes:
+            posible_positions = fox.pos_movement(matrix)
+            move = posible_positions[random.randint(0, len(posible_positions) - 1)]
+            fox.movement(move, matrix)
+        
+        for rabbit in rabbits:
+            posible_positions = rabbit.pos_movement(matrix)
+            move = posible_positions[random.randint(0, len(posible_positions) - 1)]
+            rabbit.movement(move, matrix)
+        time += 1
+
+    # show final state
+    draw_state(ax, board_size, matrix)
+    plt.title("Final State")
+    plt.show()
+
 def main():
 
     # # item a
@@ -146,60 +188,20 @@ def main():
     # plt.show()
 
     # item b
-    time_max = 1000
-    time = 0
+    time_max = 100
     board_size = 8
-    fig, ax = plt.subplots()
-    fig.set_size_inches(8,8)
-
+    n_rabbits = 30
+    n_foxes = 15
+    sleep =0.01
     matrix = [[[[] for col in range(board_size)]
                for row in range(board_size)] for role in range(2)]
 
-    foxes = []
-    rabbits = []
+    
+    item_b(n_rabbits, n_foxes, ,sleep, board_size, matrix, time_max)
 
-    for i in range(0, 100):
-        rabbits.append(Animal(0, matrix))
-    for i in range(0, 30):
-        foxes.append(Animal(1, matrix))
-
-    while time < time_max:
-
-        # draw state in the board
-        draw_state(ax, board_size, matrix)
-        # wait until refresh board
-        plt.pause(0.001)
-        plt.cla()
-
-        # foxes eat rabbits if in the same cell
-        eat_rabbits(rabbits, matrix)
-        # draw state in the board
-        draw_state(ax, board_size, matrix)
-        # wait until refresh board
-        plt.pause(0.001)
-        plt.cla()
-        
-        # animals move
-        for fox in foxes:
-            posible_positions = fox.pos_movement(matrix)
-            move = posible_positions[random.randint(0, len(posible_positions) - 1)]
-            fox.movement(move, matrix)
-        
-        for rabbit in rabbits:
-            posible_positions = rabbit.pos_movement(matrix)
-            move = posible_positions[random.randint(0, len(posible_positions) - 1)]
-            rabbit.movement(move, matrix)
-            print("-")
-        time += 1
-        print("-----------------------------------------------------------------")
-
-    # show final state
-    draw_state(ax, board_size, matrix)
-    plt.title("Final State")
-    plt.show()
+    # item c
 
 
-    # item b
 
 
 if __name__ == "__main__":
