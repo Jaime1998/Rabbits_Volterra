@@ -304,7 +304,7 @@ def main():
             n_rabbits = int(options[1])
             time_max = int(options[2])
             board_size = int(options[3])
-            sleep = float(options[4])
+            sleep = int(options[4])
             
             matrix = [[[[] for col in range(board_size)]
                     for row in range(board_size)] for role in range(2)]
@@ -317,7 +317,7 @@ def main():
             n_rabbits = int(options[1])
             time_max = int(options[2])
             board_size = int(options[3])
-            sleep = float(options[4])
+            sleep = int(options[4])
             t1ReproductionRabbits = int(options[5])
             
             matrix = [[[[] for col in range(board_size)]

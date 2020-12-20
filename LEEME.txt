@@ -1,0 +1,57 @@
+
+Proyecto de Software Vida Artificial: Zorros y Conejos
+Integrantes:
+    Jaime Cuartas Granada 
+    Emily Esmeralda Carvajal Camelo
+
+Requerimientos:
+
+Python 3.8.5
+
+Librerias utilizadas:
+    matplotlib==3.3.0rc1
+    numpy==1.19.0
+
+
+Para ejecutar el archivo vidaArtificial.py tenemos diferentes opciones
+
+-a : para ejecutar el item a, esta opcion tiene 3 argumentos
+
+     cantidad de zorros, cantidad de conejos y unidades de tiempo que van a pasar
+
+    -a numberFoxes,numberRabbits,times 
+     ejemplo:
+     python vidaArtificial.py -a 50,100,250
+
+     El item a, genera un diagrama de matplotlib.
+
+-b : para ejecutar el item b, esta opcion tiene 5 argumentos
+
+     cantidad de zorros, cantidad de conejos, unidades de tiempo que van a pasar,
+     tamaño de tablero (se supone un tablero cuadrado), tiempo de pausa (sg) entre cada estado: dibujar->comer->refrescar->mover->refrescar
+
+    -b numberFoxes,numberRabbits,times,boardSize,pausaStep
+     ejemplo:
+     python vidaArtificial -b 10,30,50,8,1
+     
+     El item b, genera un diagrama que se refresca dependiendo del argumento tiempo de pausa
+     y se cierra al llegar a las unidades de tiempo que van a pasar.
+
+-c : para ejecutar el item c, esta opcion tiene 6 argumentos
+
+     cantidad de zorros, cantidad de conejos, unidades de tiempo que van a pasar,
+     tamaño de tablero (se supone un tablero cuadrado), tiempo de pausa (sg) entre cada estado: dibujar->comer->refrescar->mover->refrescar,
+     intervalo de tiempo entre cada reproducción de los conejos
+
+    -c numberFoxes,numberRabbits,times,boardSize,pausaStep,timeReproductionRabbits
+     ejemplo:
+     python vidaArtificial.py -c 10,30,50,8,1,2
+
+
+     El item c, genera un diagrama que se refresca dependiendo del argumento tiempo de pausa
+     y se cierra al llegar a las unidades de tiempo que van a pasar.
+
+     Conclusión: Respecto al item c, como no pueden morir los zorros, estos a lo largo del tiempo 
+                 van a llenar el tablero y sin importar los cromosomas que se vayan generando con la 
+                 reproducción de los conejos, estos se terminarán extinguiendo.
+                 
